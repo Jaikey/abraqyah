@@ -1,0 +1,22 @@
+#vision .vm-heading { max-width: 48rem; }
+#vision .vm-heading .label { color: var(--onm); }
+#vision .vm-heading h2 { margin-top: 24px; color: #fff; font-size: clamp(2rem, 4.5vw, 3.4rem); line-height: 1.06; }
+#vision .vm-heading > p { max-width: 42rem; margin-top: 14px; color: #a9b8ca; font-size: 14px; line-height: 1.65; }
+
+#vision .vm { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 40px; border: 0; background: transparent; }
+#vision .vm > .vm-card { min-width: 0; min-height: 278px; padding: clamp(24px, 3.2vw, 40px); border: 1px solid #dce2eb; border-radius: 3px; background: #fff; color: var(--fg); }
+#vision .vm-icon { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid rgba(229,64,86,.18); border-radius: 3px; background: #fff1f3; color: var(--pri); }
+#vision .vm-icon svg { width: 19px; height: 19px; }
+#vision .vm-card > .eyebrow { display: block; margin-top: 19px; color: var(--pri); font: 600 9px/1.4 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; }
+#vision .vm-card h3 { margin-top: 7px; color: var(--fg); font: 700 clamp(1.25rem, 2.1vw, 1.5rem)/1.25 var(--f-head); }
+#vision .vm-card p { max-width: 38rem; margin-top: 18px; color: var(--mut); font-size: 13px; line-height: 1.75; }
+
+@media (max-width: 899px) {
+	#vision .vm { grid-template-columns: 1fr; gap: 16px; }
+	#vision .vm > .vm-card { min-height: 0; }
+}
+@media (max-width: 639px) {
+	#vision .vm-heading h2 { margin-top: 18px; }
+	#vision .vm { margin-top: 30px; }
+	#vision .vm > .vm-card { padding: 26px; }
+}

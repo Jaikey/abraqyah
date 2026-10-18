@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14304d"/><stop offset="1" stop-color="#0a1626"/></linearGradient>
+<pattern id="p" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#25374d" stroke-width="1"/></pattern>
+</defs>
+<rect width="1600" height="1000" fill="url(#g)"/><rect width="1600" height="1000" fill="url(#p)" opacity=".7"/>
+<g fill="none" stroke="#e54056" stroke-width="3" opacity=".9"><path d="M0 700H420V560H900V700H1240V470H1600"/></g>
+<g fill="none" stroke="#9fb0c3" stroke-width="1.5" opacity=".35"><path d="M0 720H400V580H920V720H1260V490H1600"/><circle cx="800" cy="320" r="140"/><circle cx="800" cy="320" r="90" stroke-dasharray="14 10"/></g>
+<text x="800" y="880" text-anchor="middle" font-family="monospace" font-size="22" letter-spacing="6" fill="#9fb0c3" opacity=".6">REPLACE WITH PROJECT PHOTO</text>
+</svg>
