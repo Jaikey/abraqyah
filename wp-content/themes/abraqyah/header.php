@@ -36,7 +36,7 @@ $co = abq_company();
 				'theme_location' => 'primary',
 				'container'      => false,
 				'menu_class'     => 'menu',
-				'depth'          => 2,
+				'depth'          => 3,
 				'fallback_cb'    => 'abq_fallback_menu',
 			) );
 			?>

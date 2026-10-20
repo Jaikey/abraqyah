@@ -7,11 +7,12 @@
 	--cp-cream: #f8f6f1; --cp-grey: #e6e8ec; --cp-line: #dcd9d1;
 	--cp-text: #5b6068; --cp-muted: #8a8f97;
 	--cp-pad: clamp(20px, 5vw, 64px); --cp-max: 1200px;
-	--cp-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
-	font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+	--cp-mono: var(--f-mono);
+	font-family: var(--f-body);
 	color: var(--cp-ink); line-height: 1.6; font-size: 16px;
 }
-.cp h1, .cp h2, .cp h3, .cp strong { font-family: inherit; letter-spacing: normal; }
+.cp h1, .cp h2, .cp h3 { font-family: var(--f-head); letter-spacing: normal; }
+.cp strong { font-family: inherit; letter-spacing: normal; }
 .cp h1, .cp h2, .cp p, .cp ul { margin: 0; padding: 0; }
 .cp .cp-wrap { max-width: var(--cp-max); margin: 0 auto; padding-left: var(--cp-pad); padding-right: var(--cp-pad); }
 .cp .cp-mono { font-family: var(--cp-mono); }

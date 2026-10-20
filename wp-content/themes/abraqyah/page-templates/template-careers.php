@@ -100,7 +100,8 @@ $subtitle = has_excerpt() ? get_the_excerpt() : 'Join specialized field engineer
 	<section class="career-jobs" id="openings">
 		<div class="career-wrap">
 			<div class="career-eyebrow"><b>02</b><i></i><span>Career opportunities</span></div>
-			<div class="career-jobs-heading"><h2>Current Openings in Eastern Province &amp; Field Sites</h2><a class="career-button career-button--outline" href="#general-application">General application <span aria-hidden="true">↗</span></a></div>
+			<div class="career-jobs-heading"><h2>Current Openings in Eastern Province &amp; Field Sites</h2>
+			</div>
 			<div class="career-filters" role="group" aria-label="Filter jobs by discipline">
 				<button type="button" class="is-active" data-career-filter="all">All disciplines <span><?php echo count( $jobs ); ?></span></button>
 				<button type="button" data-career-filter="pipeline">Pipeline <span>2</span></button>
@@ -117,13 +118,13 @@ $subtitle = has_excerpt() ? get_the_excerpt() : 'Join specialized field engineer
 								<span class="career-tag"><?php echo esc_html( $job['division'] ); ?></span>
 								<span class="career-job-meta"><?php echo esc_html( $job['location'] ); ?></span>
 								<span class="career-job-meta career-job-experience"><?php echo esc_html( $job['experience'] ); ?></span>
-								<span class="career-chevron" aria-hidden="true">⌄</span>
+								<span class="career-chevron" aria-hidden="true"></span>
 							</button>
-							<button class="career-button career-apply" type="button" data-career-title="<?php echo esc_attr( $job['title'] ); ?>" data-career-division="<?php echo esc_attr( $job['division'] ); ?>">Apply</button>
 						</div>
 						<div class="career-job-detail" hidden>
 							<div><h3>Scope &amp; responsibilities</h3><ul><?php foreach ( $job['scope'] as $item ) : ?><li><?php echo esc_html( $item ); ?></li><?php endforeach; ?></ul></div>
 							<div><h3>Key qualifications</h3><ul><?php foreach ( $job['qualifications'] as $item ) : ?><li><?php echo esc_html( $item ); ?></li><?php endforeach; ?></ul></div>
+							<div class="career-job-detail-actions"><button class="career-button career-apply" type="button" data-career-title="<?php echo esc_attr( $job['title'] ); ?>" data-career-division="<?php echo esc_attr( $job['division'] ); ?>">Apply <span aria-hidden="true">→</span></button></div>
 						</div>
 					</article>
 				<?php endforeach; ?>

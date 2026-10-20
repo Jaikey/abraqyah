@@ -27,10 +27,12 @@ get_template_part( 'template-parts/page-hero', null, array(
 	<div class="container">
 		<div class="g12">
 			<div class="c5 about__media">
-				<div class="rv-clip"><img class="about__img" src="<?php echo esc_url( abq_img( 'about' ) ); ?>" alt="" loading="lazy" width="1280" height="1280"></div>
-				<div class="about__stat rv" data-rv="left">
-					<p class="n"><span data-count="<?php echo esc_attr( (int) get_theme_mod( 'abq_stat_number', 15 ) ); ?>"><?php echo esc_html( (int) get_theme_mod( 'abq_stat_number', 15 ) ); ?></span><span class="pri">+</span></p>
-					<p class="eyebrow on-muted"><?php echo esc_html( get_theme_mod( 'abq_stat_label', 'OEM manufacturer representations' ) ); ?></p>
+				<div class="rv-clip">
+					<img class="about__img" src="<?php echo esc_url( abq_img( 'about' ) ); ?>" alt="" loading="lazy" width="1280" height="960">
+					<div class="about__stat rv" data-rv="left">
+						<p class="n"><span data-count="<?php echo esc_attr( (int) get_theme_mod( 'abq_stat_number', 15 ) ); ?>"><?php echo esc_html( (int) get_theme_mod( 'abq_stat_number', 15 ) ); ?></span><span class="pri">+</span></p>
+						<p class="eyebrow on-muted"><?php echo esc_html( get_theme_mod( 'abq_stat_label', 'OEM manufacturer representations' ) ); ?></p>
+					</div>
 				</div>
 			</div>
 			<div class="c7 about__text" data-stagger>
@@ -42,8 +44,8 @@ get_template_part( 'template-parts/page-hero', null, array(
 				<div class="facts rv">
 					<div><p class="eyebrow">Company type</p><p class="v">Joint venture</p></div>
 					<div><p class="eyebrow">Operations</p><p class="v"><?php echo esc_html( $co['region'] ); ?></p></div>
-					<div><p class="eyebrow">Established</p><p class="v mono"><?php echo esc_html( $co['established'] ? $co['established'] : '[YEAR]' ); ?></p></div>
-					<div><p class="eyebrow">Head office</p><p class="v mono"><?php echo esc_html( $co['head_office'] ? $co['head_office'] : '[CITY]' ); ?></p></div>
+					<div><p class="eyebrow">Established</p><p class="v mono"><?php echo esc_html( $co['established'] ? $co['established'] : '2014' ); ?></p></div>
+					<div><p class="eyebrow">Head office</p><p class="v mono"><?php echo esc_html( $co['head_office'] ? $co['head_office'] : 'Saudi Arabia' ); ?></p></div>
 				</div>
 			</div>
 		</div>
@@ -111,7 +113,7 @@ get_template_part( 'template-parts/page-hero', null, array(
 						<?php if ( $numeric ) : ?>
 							<span data-count="<?php echo esc_attr( $m[1] ); ?>"><?php echo esc_html( $m[1] ); ?></span><?php echo esc_html( $m[2] ); ?>
 						<?php else : ?>
-							<?php echo esc_html( '' !== $raw ? $raw : '[00]' ); ?>
+							<?php echo esc_html( '' !== $raw ? $raw : '20' ); ?>
 						<?php endif; ?>
 					</p>
 					<p class="eyebrow"><?php echo esc_html( $label ); ?></p>
@@ -133,7 +135,6 @@ get_template_part( 'template-parts/page-hero', null, array(
 				</tbody>
 			</table>
 		</div>
-		<p class="mono muted placeholder-note" style="margin-top:20px">[PROJECT LIST TO BE PROVIDED BY CLIENT – CONFIRM CLIENT-NAME DISCLOSURE PERMISSIONS BEFORE PUBLISHING]</p>
 	</div>
 </section>
 <?php endif; ?>

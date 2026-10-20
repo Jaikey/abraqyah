@@ -81,14 +81,13 @@ $sub      = has_excerpt() ? get_the_excerpt() : 'Send an enquiry about pipeline,
 							<span class="cp-lbl">Location</span>
 							<strong><?php echo esc_html( $co['city'] ); ?></strong>
 							<strong><?php echo esc_html( $co['country'] ); ?></strong>
-							<?php if ( $co['address_note'] ) : ?><span class="cp-note"><?php echo esc_html( $co['address_note'] ); ?></span><?php endif; ?>
 						</div>
 					</li>
 					<li class="rv">
 						<?php echo abq_icon( 'clock' ); // phpcs:ignore ?>
 						<div>
 							<span class="cp-lbl">Office hours</span>
-							<span class="cp-note" style="margin-top:0"><?php echo esc_html( $co['hours'] ); ?></span>
+							<strong>Sunday–Thursday · 8:00 AM–5:00 PM AST</strong>
 						</div>
 					</li>
 				</ul>

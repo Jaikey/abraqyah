@@ -10,6 +10,12 @@
 	var roleInput = page.querySelector('#career-role');
 	var divisionSelect = page.querySelector('#career-division');
 	var application = page.querySelector('#general-application');
+	function setChevronState(toggle, open) {
+		var chevron = toggle.querySelector('.career-chevron');
+		if (!chevron) return;
+		chevron.style.transform = open ? 'translateY(2px) rotate(225deg)' : '';
+		chevron.style.color = open ? 'var(--career-red)' : '';
+	}
 
 	filters.forEach(function (filterButton) {
 		filterButton.addEventListener('click', function () {
@@ -22,7 +28,9 @@
 				job.hidden = !visible;
 				if (!visible) {
 					job.classList.remove('is-open');
-					job.querySelector('.career-job-toggle').setAttribute('aria-expanded', 'false');
+					var toggle = job.querySelector('.career-job-toggle');
+					toggle.setAttribute('aria-expanded', 'false');
+					setChevronState(toggle, false);
 					job.querySelector('.career-job-detail').hidden = true;
 				}
 			});
@@ -36,11 +44,14 @@
 			var willOpen = !job.classList.contains('is-open');
 			jobs.forEach(function (otherJob) {
 				otherJob.classList.remove('is-open');
-				otherJob.querySelector('.career-job-toggle').setAttribute('aria-expanded', 'false');
+				var otherToggle = otherJob.querySelector('.career-job-toggle');
+				otherToggle.setAttribute('aria-expanded', 'false');
+				setChevronState(otherToggle, false);
 				otherJob.querySelector('.career-job-detail').hidden = true;
 			});
 			job.classList.toggle('is-open', willOpen);
 			toggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+			setChevronState(toggle, willOpen);
 			detail.hidden = !willOpen;
 		});
 	});

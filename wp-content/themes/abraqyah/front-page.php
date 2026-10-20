@@ -60,10 +60,12 @@ if ( ! $divs ) {
 <section class="section about" id="about">
 	<div class="container g12">
 		<div class="c6 about__media">
-			<div class="rv-clip"><img class="about__img" src="<?php echo esc_url( get_template_directory_uri().'/assets/images/pipeline.jpg' ); ?>" alt="" loading="lazy" width="1280" height="1280"></div>
-			<div class="about__stat rv" data-rv="left">
-				<p class="n"><span data-count="<?php echo esc_attr( $stat_n ); ?>"><?php echo esc_html( $stat_n ); ?></span><span class="pri">+</span></p>
-				<p class="eyebrow on-muted"><?php echo esc_html( $stat_l ); ?></p>
+			<div class="rv-clip">
+				<img class="about__img" src="<?php echo esc_url( get_template_directory_uri().'/assets/images/pipeline.jpg' ); ?>" alt="" loading="lazy" width="1280" height="960">
+				<div class="about__stat rv" data-rv="left">
+					<p class="n"><span data-count="<?php echo esc_attr( $stat_n ); ?>"><?php echo esc_html( $stat_n ); ?></span><span class="pri">+</span></p>
+					<p class="eyebrow on-muted"><?php echo esc_html( $stat_l ); ?></p>
+				</div>
 			</div>
 		</div>
 		<div class="c6 about__text" data-stagger>
@@ -77,7 +79,7 @@ if ( ! $divs ) {
 				<div><i></i><span class="eyebrow">Mechanical</span></div>
 				<div><i></i><span class="eyebrow">Industrial</span></div>
 			</div>
-			<div class="rv"><a href="<?php echo esc_url( $about_url ); ?>" class="btn btn--line">Discover Our Company <span aria-hidden="true">→</span></a></div>
+			<div class="rv"><a href="<?php echo esc_url( $about_url ); ?>" class="btn btn--pri">Discover Our Company <span aria-hidden="true">→</span></a></div>
 		</div>
 	</div>
 </section>

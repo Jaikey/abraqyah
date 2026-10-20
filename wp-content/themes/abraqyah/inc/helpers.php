@@ -81,6 +81,9 @@ function abq_img( $slot ) {
 			return get_template_directory_uri() . $rel;
 		}
 	}
+	if ( 'about' === $slot ) {
+		return abq_img( 'pipeline' );
+	}
 	return abq_placeholder();
 }
 
@@ -278,10 +281,11 @@ function abq_quick_nav() {
 /* ------------------------------------------------------------------
  * Service card (used by Services, Division and Category templates)
  * ---------------------------------------------------------------- */
-function abq_render_card( $post, $n, $total = 0, $row = false, $slot = 'hero' ) {
+function abq_render_card( $post, $n, $total = 0, $row = false, $slot = 'hero', $modal = false ) {
 	$kids     = abq_children( $post->ID );
 	$has_kids = ! empty( $kids );
 	$count    = sprintf( '%02d', $n ) . ( $total ? ' / ' . sprintf( '%02d', $total ) : '' );
+	$dialog_id = 'service-dialog-' . (int) $post->ID;
 	$classes  = 'svc-card rv' . ( $row ? ' svc-card--row' : '' );
 	?>
 	<article class="<?php echo esc_attr( $classes ); ?>">
@@ -302,12 +306,30 @@ function abq_render_card( $post, $n, $total = 0, $row = false, $slot = 'hero' ) 
 					<?php echo abq_icon( 'arrow' ); // phpcs:ignore ?>
 				</a>
 			<?php else : ?>
-				<div class="svc-card__actions">
-					<a class="explore" href="<?php echo esc_url( get_permalink( $post ) ); ?>">Details <?php echo abq_icon( 'arrow' ); // phpcs:ignore ?></a>
-					<a class="explore explore--pri" href="<?php echo esc_url( abq_enquire_url( $post ) ); ?>">Enquire <?php echo abq_icon( 'arrow' ); // phpcs:ignore ?></a>
-				</div>
+				<?php if ( $modal ) : ?>
+					<button class="svc-card__details" type="button" data-service-dialog="<?php echo esc_attr( $dialog_id ); ?>" aria-haspopup="dialog">
+						View service overview <span aria-hidden="true">↗</span>
+					</button>
+				<?php endif; ?>
 			<?php endif; ?>
 		</div>
+		<?php if ( $modal && ! $has_kids ) : ?>
+			<dialog class="svc-dialog" id="<?php echo esc_attr( $dialog_id ); ?>" aria-labelledby="<?php echo esc_attr( $dialog_id . '-title' ); ?>">
+				<button class="svc-dialog__close" type="button" data-service-dialog-close aria-label="Close service overview">&times;</button>
+				<div class="svc-dialog__layout">
+					<div class="svc-dialog__media"><img src="<?php echo esc_url( abq_thumb( $post, 'large', $slot ) ); ?>" alt="" width="1000" height="750"></div>
+					<div class="svc-dialog__content">
+						<p class="svc-dialog__eyebrow">Service overview</p>
+						<h2 id="<?php echo esc_attr( $dialog_id . '-title' ); ?>"><?php echo esc_html( $post->post_title ); ?></h2>
+						<?php if ( has_excerpt( $post ) ) : ?><p class="svc-dialog__excerpt"><?php echo esc_html( get_the_excerpt( $post ) ); ?></p><?php endif; ?>
+						<?php if ( trim( wp_strip_all_tags( $post->post_content ) ) ) : ?>
+							<div class="svc-dialog__body"><?php echo wp_kses_post( wpautop( strip_shortcodes( $post->post_content ) ) ); ?></div>
+						<?php endif; ?>
+						<div class="svc-dialog__actions"><a class="btn btn--pri" href="<?php echo esc_url( abq_enquire_url( $post ) ); ?>">Enquire about this service <span aria-hidden="true">→</span></a></div>
+					</div>
+				</div>
+			</dialog>
+		<?php endif; ?>
 	</article>
 	<?php
 }

@@ -21,12 +21,12 @@ $capabilities = array(
 );
 
 $service_matrix = array(
-	array( 'tag' => '01 · Rotating', 'title' => 'OEM-Certified Maintenance & Overhauling', 'text' => 'Factory-grade teardown, inspection, rotor balancing, and precision reassembly for critical turbomachinery.', 'url' => $rotating_url ),
-	array( 'tag' => '02 · Machining', 'title' => 'Field Repairs, Balancing & Machining', 'text' => 'On-site line boring, flange facing, journal reconditioning, and dynamic rotor balancing.', 'url' => $rotating_url ),
-	array( 'tag' => '03 · Mechanical', 'title' => 'Compressor, Pump & Valve Services', 'text' => 'Mechanical refurbishment, pump overhauls, seal work, and pressure-relief valve testing.', 'url' => $rotating_url ),
-	array( 'tag' => '04 · Pipeline', 'title' => 'Pipeline Pre-Commissioning', 'text' => 'Mechanical cleaning, pigging, hydrostatic testing, swabbing, and vacuum drying.', 'url' => $pipeline_url ),
-	array( 'tag' => '05 · Testing', 'title' => 'Hydro-Testing & Chemical Cleaning', 'text' => 'High-pressure testing, caliper pigging, and chemical cleaning for process systems.', 'url' => $pipeline_url ),
-	array( 'tag' => '06 · Nitrogen', 'title' => 'Purging, Leak Testing & Preservation', 'text' => 'Nitrogen generation, inerting, helium leak detection, and long-term asset preservation.', 'url' => $ngu_url ),
+	array( 'tag' => '01 · Rotating', 'title' => 'OEM-Certified Maintenance & Overhauling', 'text' => 'Factory-grade teardown, inspection, rotor balancing, and precision reassembly for critical turbomachinery.', 'url' => $rotating_url, 'icon' => 'oem.svg' ),
+	array( 'tag' => '02 · Machining', 'title' => 'Field Repairs, Balancing & Machining', 'text' => 'On-site line boring, flange facing, journal reconditioning, and dynamic rotor balancing.', 'url' => $rotating_url, 'icon' => 'machining.svg' ),
+	array( 'tag' => '03 · Mechanical', 'title' => 'Compressor, Pump & Valve Services', 'text' => 'Mechanical refurbishment, pump overhauls, seal work, and pressure-relief valve testing.', 'url' => $rotating_url, 'icon' => 'mechanical.svg' ),
+	array( 'tag' => '04 · Pipeline', 'title' => 'Pipeline Pre-Commissioning', 'text' => 'Mechanical cleaning, pigging, hydrostatic testing, swabbing, and vacuum drying.', 'url' => $pipeline_url, 'icon' => 'pipeloine.svg' ),
+	array( 'tag' => '05 · Testing', 'title' => 'Hydro-Testing & Chemical Cleaning', 'text' => 'High-pressure testing, caliper pigging, and chemical cleaning for process systems.', 'url' => $pipeline_url, 'icon' => 'hydro.svg' ),
+	array( 'tag' => '06 · Nitrogen', 'title' => 'Purging, Leak Testing & Preservation', 'text' => 'Nitrogen generation, inerting, helium leak detection, and long-term asset preservation.', 'url' => $ngu_url, 'icon' => 'ngu.svg' ),
 );
 
 $projects = array(
@@ -92,20 +92,19 @@ $projects = array(
 			<div class="hn-service-grid">
 				<?php foreach ( $service_matrix as $service ) : ?>
 					<article class="hn-service-card">
-						<div class="hn-service-card-head"><span class="hn-service-icon" aria-hidden="true">+</span><span><?php echo esc_html( $service['tag'] ); ?></span></div>
+						<div class="hn-service-card-head"><span class="hn-service-icon" aria-hidden="true"><img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/icons/' . $service['icon'] ); ?>" alt="" width="15" height="15"></span><span><?php echo esc_html( $service['tag'] ); ?></span></div>
 						<h3><?php echo esc_html( $service['title'] ); ?></h3>
 						<p><?php echo esc_html( $service['text'] ); ?></p>
-						<a class="hn-text-link" href="<?php echo esc_url( $service['url'] ); ?>">View technical scope <span aria-hidden="true">↗</span></a>
 					</article>
 				<?php endforeach; ?>
 			</div>
 			<article class="hn-fleet">
 				<div class="hn-fleet-image"><img src="<?php echo esc_url( abq_img( 'pipeline-testing' ) ); ?>" alt="" loading="lazy" width="1000" height="700"><span>FLEET SUPPORT · REGIONAL MOBILIZATION</span></div>
 				<div class="hn-fleet-copy">
-					<div class="hn-eyebrow"><b>07</b><i></i><span>Expedient Fleet Rentals</span></div>
+					<div class="hn-eyebrow"><b>04</b><i></i><span>Expedient Fleet Rentals</span></div>
 					<h3>Industrial Equipment Fleet Rentals</h3>
 					<p>Coordinated access to air compressors, hydro-test pumps, nitrogen packages, and power equipment for site requirements.</p>
-					<div class="hn-fleet-specs"><div><strong>1,600+ CFM</strong><span>Air compressors</span></div><div><strong>15,000 PSI</strong><span>Test pumps</span></div><div><strong>99.9%</strong><span>Nitrogen purity</span></div></div>
+					<div class="hn-fleet-specs"><div><strong><span data-count="1600" data-count-group="true">1,600</span>+ CFM</strong><span>Air compressors</span></div><div><strong><span data-count="15000" data-count-group="true">15,000</span> PSI</strong><span>Test pumps</span></div><div><strong><span data-count="99.9" data-count-decimals="1">99.9</span>%</strong><span>Nitrogen purity</span></div></div>
 					<a class="btn btn--pri" href="<?php echo esc_url( add_query_arg( 'service', 'rentals', $args['contact_url'] ) ); ?>">Request fleet details <span aria-hidden="true">→</span></a>
 				</div>
 			</article>
@@ -115,7 +114,7 @@ $projects = array(
 	<section class="hn-compliance">
 		<div class="container hn-compliance-grid">
 			<div class="hn-compliance-copy">
-				<div class="hn-eyebrow"><b>04</b><i></i><span>OEM &amp; Compliance Standards</span></div>
+				<div class="hn-eyebrow"><b>05</b><i></i><span>OEM &amp; Compliance Standards</span></div>
 				<h2>Global Standards. Localized Execution.</h2>
 				<p>Certified field teams and quality engineers work to applicable industry codes and client requirements, with clear inspection records and project documentation.</p>
 				<div class="hn-standards">
@@ -135,7 +134,7 @@ $projects = array(
 	<section class="hn-work" id="our-works">
 		<div class="container">
 			<div class="hn-work-head">
-				<div><div class="hn-eyebrow"><b>05</b><i></i><span>Our Works</span></div><h2>Field Execution Gallery</h2></div>
+				<div><div class="hn-eyebrow"><b>06</b><i></i><span>Our Works</span></div><h2>Field Execution Gallery</h2></div>
 				<div class="hn-work-filters" role="group" aria-label="Filter projects">
 					<button type="button" class="is-active" data-work-filter="all" aria-pressed="true">All Projects</button>
 					<button type="button" data-work-filter="pipeline" aria-pressed="false">Pipeline</button>
@@ -159,14 +158,5 @@ $projects = array(
 		</div>
 	</section>
 
-	<section class="hn-cta">
-		<img src="<?php echo esc_url( abq_img( 'hero' ) ); ?>" alt="" loading="lazy" width="1920" height="1088">
-		<div class="hn-cta-shade"></div>
-		<div class="container hn-cta-content">
-			<div class="hn-eyebrow"><b>06</b><i></i><span>Mobilization &amp; Scoping</span></div>
-			<h2>Planning Your Next Turnaround or Pipeline Spread?</h2>
-			<p>Connect with our technical team to discuss pipeline parameters, machinery requirements, or turnaround schedules.</p>
-			<div class="hn-cta-actions"><a class="btn btn--pri" href="<?php echo esc_url( $args['contact_url'] ); ?>">Submit project scope <span aria-hidden="true">→</span></a><a class="btn btn--ghost" href="tel:+966554275318">Call Technical Desk</a></div>
-		</div>
-	</section>
+	<?php get_template_part( 'template-parts/cta', null, array( 'contact_url' => $args['contact_url'] ) ); ?>
 </div>

@@ -16,6 +16,7 @@ $kids     = abq_children( $id );
 $has_intro = '' !== trim( wp_strip_all_tags( $post->post_content ) );
 $headline = get_post_meta( $id, '_abq_headline', true );
 $kicker   = get_post_meta( $id, '_abq_kicker', true );
+$show_service_modals = 2 === $depth;
 
 // Hero kicker: "Division 01 / 03" for divisions, parent name for deeper levels.
 if ( ! $kicker ) {
@@ -65,7 +66,7 @@ $slot_map = array( 'pipeline', 'rotating', 'ngu' );
 			</div>
 		</div>
 		<div class="listing-split__list cards cards--1" data-stagger>
-			<?php foreach ( $kids as $i => $kid ) { abq_render_card( $kid, $i + 1, 0, true, 'hero' ); } ?>
+			<?php foreach ( $kids as $i => $kid ) { abq_render_card( $kid, $i + 1, 0, true, 'hero', $show_service_modals ); } ?>
 		</div>
 	</div>
 </section>
@@ -76,10 +77,10 @@ $slot_map = array( 'pipeline', 'rotating', 'ngu' );
 		<div class="label rv"><b>01</b><i></i>Services &amp; products</div>
 		<div class="listhead rv">
 			<h2><?php echo esc_html( count( $kids ) ); ?> <?php echo esc_html( 1 === count( $kids ) ? 'service' : 'services' ); ?> in this category</h2>
-			<a class="btn btn--pri" href="<?php echo esc_url( abq_enquire_url( $post ) ); ?>">Enquire <span aria-hidden="true">→</span></a>
+			<!-- <a class="btn btn--pri" href="<?php echo esc_url( abq_enquire_url( $post ) ); ?>">Enquire <span aria-hidden="true">→</span></a> -->
 		</div>
 		<div class="cards cards--auto" data-stagger>
-			<?php foreach ( $kids as $i => $kid ) { abq_render_card( $kid, $i + 1, 0, false, 'hero' ); } ?>
+			<?php foreach ( $kids as $i => $kid ) { abq_render_card( $kid, $i + 1, 0, false, 'hero', $show_service_modals ); } ?>
 		</div>
 	</div>
 </section>

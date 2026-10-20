@@ -50,7 +50,7 @@ add_action( 'after_setup_theme', 'abq_setup' );
 function abq_assets() {
 	wp_enqueue_style(
 		'abq-fonts',
-		'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap',
+		'https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@400;500;600;700&display=swap',
 		array(),
 		null
 	);
@@ -63,22 +63,22 @@ function abq_assets() {
 		$about_css = get_template_directory() . '/assets/css/about.css';
 		wp_enqueue_style( 'abq-about', get_template_directory_uri() . '/assets/css/about.css', array( 'abq-main' ), file_exists( $about_css ) ? filemtime( $about_css ) : ABQ_VERSION );
 	}
-	if ( is_front_page() ) {
+	if ( is_front_page() || is_page() ) {
 		$home_css = get_template_directory() . '/assets/css/homepage-after-about.css';
-		$home_js  = get_template_directory() . '/assets/js/homepage-work.js';
 		wp_enqueue_style( 'abq-home-refresh', get_template_directory_uri() . '/assets/css/homepage-after-about.css', array( 'abq-main' ), file_exists( $home_css ) ? filemtime( $home_css ) : ABQ_VERSION );
+	}
+	if ( is_front_page() ) {
+		$home_js = get_template_directory() . '/assets/js/homepage-work.js';
 		wp_enqueue_script( 'abq-home-work', get_template_directory_uri() . '/assets/js/homepage-work.js', array(), file_exists( $home_js ) ? filemtime( $home_js ) : ABQ_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );
 	}
 	if ( is_page_template( 'page-templates/template-contact.php' ) ) {
 		$ccss = get_template_directory() . '/assets/css/contact.css';
-		wp_enqueue_style( 'abq-contact-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@800&family=IBM+Plex+Mono:wght@400;500&display=swap', array(), null );
-		wp_enqueue_style( 'abq-contact', get_template_directory_uri() . '/assets/css/contact.css', array( 'abq-main', 'abq-contact-fonts' ), file_exists( $ccss ) ? filemtime( $ccss ) : ABQ_VERSION );
+		wp_enqueue_style( 'abq-contact', get_template_directory_uri() . '/assets/css/contact.css', array( 'abq-main' ), file_exists( $ccss ) ? filemtime( $ccss ) : ABQ_VERSION );
 	}
 	if ( is_page_template( 'page-templates/template-careers.php' ) ) {
 		$career_css = get_template_directory() . '/assets/css/careers.css';
 		$career_js  = get_template_directory() . '/assets/js/careers.js';
-		wp_enqueue_style( 'abq-careers-fonts', 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap', array(), null );
-		wp_enqueue_style( 'abq-careers', get_template_directory_uri() . '/assets/css/careers.css', array( 'abq-main', 'abq-careers-fonts' ), file_exists( $career_css ) ? filemtime( $career_css ) : ABQ_VERSION );
+		wp_enqueue_style( 'abq-careers', get_template_directory_uri() . '/assets/css/careers.css', array( 'abq-main' ), file_exists( $career_css ) ? filemtime( $career_css ) : ABQ_VERSION );
 		wp_enqueue_script( 'abq-careers', get_template_directory_uri() . '/assets/js/careers.js', array(), file_exists( $career_js ) ? filemtime( $career_js ) : ABQ_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );
 	}
 	wp_enqueue_script( 'abq-main', get_template_directory_uri() . '/assets/js/main.js', array(), file_exists( $js ) ? filemtime( $js ) : ABQ_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );

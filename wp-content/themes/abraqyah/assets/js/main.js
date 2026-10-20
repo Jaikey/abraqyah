@@ -10,6 +10,24 @@
 	function $$(sel, ctx) { return Array.prototype.slice.call((ctx || doc).querySelectorAll(sel)); }
 	function clamp(n, a, b) { return Math.min(b, Math.max(a, n)); }
 
+	$$('[data-service-dialog]').forEach(function (button) {
+		var dialog = doc.getElementById(button.getAttribute('data-service-dialog'));
+		if (!dialog || typeof dialog.showModal !== 'function') { return; }
+
+		button.addEventListener('click', function () { dialog.showModal(); });
+		$('[data-service-dialog-close]', dialog).addEventListener('click', function () { dialog.close(); });
+		dialog.addEventListener('keydown', function (event) {
+			if ('Escape' === event.key) {
+				event.preventDefault();
+				event.stopPropagation();
+				dialog.close();
+			}
+		});
+		dialog.addEventListener('click', function (event) {
+			if (event.target === dialog) { dialog.close(); }
+		});
+	});
+
 	/* 1 ── Split headings into masked words for a rising reveal */
 	$$('.split').forEach(function (el) {
 		var words = el.textContent.trim().split(/\s+/);
@@ -35,16 +53,26 @@
 	});
 
 	/* 3 ── Count-up numbers */
+	function formatCount(el, value) {
+		var decimals = parseInt(el.getAttribute('data-count-decimals'), 10) || 0;
+		var scale = Math.pow(10, decimals);
+		value = Math.round(value * scale) / scale;
+		if ('true' === el.getAttribute('data-count-group')) {
+			return value.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+		}
+		return decimals ? value.toFixed(decimals) : String(Math.round(value));
+	}
+
 	function countUp(el) {
 		var target = parseFloat(el.getAttribute('data-count'));
 		if (isNaN(target)) { return; }
-		if (reduce) { el.textContent = target; return; }
+		if (reduce) { el.textContent = formatCount(el, target); return; }
 		var start = null, dur = 1700;
 		function tick(ts) {
 			if (start === null) { start = ts; }
 			var t = clamp((ts - start) / dur, 0, 1);
 			var eased = 1 - Math.pow(1 - t, 4);
-			el.textContent = Math.round(target * eased);
+			el.textContent = formatCount(el, target * eased);
 			if (t < 1) { requestAnimationFrame(tick); }
 		}
 		el.textContent = '0';
@@ -74,7 +102,7 @@
 		});
 	} else {
 		revealEls.forEach(function (el) { el.classList.add('is-in'); });
-		counters.forEach(function (el) { el.textContent = el.getAttribute('data-count'); });
+		counters.forEach(function (el) { el.textContent = formatCount(el, parseFloat(el.getAttribute('data-count'))); });
 	}
 
 	// Hero entrance: flag the page as loaded after first paint
