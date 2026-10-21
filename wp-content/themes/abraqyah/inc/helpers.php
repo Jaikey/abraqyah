@@ -184,6 +184,55 @@ function abq_services_root() {
 	return abq_page_by_template( 'page-templates/template-services.php' );
 }
 
+function abq_service_directory_route_aliases() {
+	return array();
+}
+
+function abq_register_service_directory_rewrites() {
+	add_rewrite_rule( '^services/(.+)/?$', 'index.php?pagename=services&service_category_path=$matches[1]', 'top' );
+}
+add_action( 'init', 'abq_register_service_directory_rewrites' );
+
+function abq_service_directory_query_vars( $vars ) {
+	$vars[] = 'service_category_path';
+	return $vars;
+}
+add_filter( 'query_vars', 'abq_service_directory_query_vars' );
+
+function abq_service_directory_preserve_route( $redirect_url ) {
+	return get_query_var( 'service_category_path' ) ? false : $redirect_url;
+}
+add_filter( 'redirect_canonical', 'abq_service_directory_preserve_route' );
+
+function abq_service_directory_flush_rewrites() {
+	if ( '1' === get_option( 'abq_service_directory_rewrites' ) ) {
+		return;
+	}
+	flush_rewrite_rules( false );
+	update_option( 'abq_service_directory_rewrites', '1' );
+}
+add_action( 'init', 'abq_service_directory_flush_rewrites', 99 );
+
+function abq_service_category_url( $term ) {
+	$root = abq_services_root();
+	if ( ! $root || ! $term || is_wp_error( $term ) ) {
+		return home_url( '/services/' );
+	}
+
+	$aliases = abq_service_directory_route_aliases();
+	$ids     = array_reverse( get_ancestors( (int) $term->term_id, 'service-category', 'taxonomy' ) );
+	$ids[]   = (int) $term->term_id;
+	$parts   = array();
+	foreach ( $ids as $id ) {
+		$ancestor = get_term( $id, 'service-category' );
+		if ( $ancestor && ! is_wp_error( $ancestor ) ) {
+			$parts[] = isset( $aliases[ $ancestor->slug ] ) ? $aliases[ $ancestor->slug ] : $ancestor->slug;
+		}
+	}
+
+	return trailingslashit( get_permalink( $root ) ) . implode( '/', $parts ) . '/';
+}
+
 function abq_children( $parent_id ) {
 	return get_posts( array(
 		'post_type'      => 'page',
@@ -213,7 +262,11 @@ function abq_in_services( $post_id = 0 ) {
 
 function abq_enquire_url( $post ) {
 	$post = get_post( $post );
-	return $post ? add_query_arg( 'service', $post->post_name, abq_contact_url() ) : abq_contact_url();
+	if ( ! $post ) {
+		return abq_contact_url();
+	}
+	$key = 'service' === $post->post_type ? 'enquiry_service' : 'service';
+	return add_query_arg( $key, $post->post_name, abq_contact_url() );
 }
 
 function abq_card_desc( $post, $words = 24 ) {
@@ -281,7 +334,7 @@ function abq_quick_nav() {
 /* ------------------------------------------------------------------
  * Service card (used by Services, Division and Category templates)
  * ---------------------------------------------------------------- */
-function abq_render_card( $post, $n, $total = 0, $row = false, $slot = 'hero', $modal = false ) {
+function abq_render_card( $post, $n, $total = 0, $row = false, $slot = 'hero', $modal = false, $show_child_list = true ) {
 	$kids     = abq_children( $post->ID );
 	$has_kids = ! empty( $kids );
 	$count    = sprintf( '%02d', $n ) . ( $total ? ' / ' . sprintf( '%02d', $total ) : '' );
@@ -296,11 +349,13 @@ function abq_render_card( $post, $n, $total = 0, $row = false, $slot = 'hero', $
 			<?php $desc = abq_card_desc( $post ); ?>
 			<?php if ( $desc ) : ?><p><?php echo esc_html( $desc ); ?></p><?php endif; ?>
 			<?php if ( $has_kids ) : ?>
-				<ul class="svc-card__list">
-					<?php foreach ( array_slice( $kids, 0, 3 ) as $kid ) : ?>
-						<li><?php echo esc_html( $kid->post_title ); ?></li>
-					<?php endforeach; ?>
-				</ul>
+				<?php if ( $show_child_list ) : ?>
+					<ul class="svc-card__list">
+						<?php foreach ( array_slice( $kids, 0, 3 ) as $kid ) : ?>
+							<li><?php echo esc_html( $kid->post_title ); ?></li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
 				<a class="explore stretched" href="<?php echo esc_url( get_permalink( $post ) ); ?>">
 					Explore <span class="explore__n mono"><?php echo esc_html( count( $kids ) ); ?> <?php echo esc_html( 1 === count( $kids ) ? 'service' : 'services' ); ?></span>
 					<?php echo abq_icon( 'arrow' ); // phpcs:ignore ?>

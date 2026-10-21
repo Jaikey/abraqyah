@@ -18,11 +18,11 @@ foreach ( abq_divisions() as $division ) {
 }
 $options['Other'] = 'Other';
 
-$pre_slug  = isset( $_GET['service'] ) ? sanitize_title( wp_unslash( $_GET['service'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+$pre_slug  = isset( $_GET['enquiry_service'] ) ? sanitize_title( wp_unslash( $_GET['enquiry_service'] ) ) : ( isset( $_GET['service'] ) ? sanitize_title( wp_unslash( $_GET['service'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
 $pre_label = '';
 if ( $pre_slug ) {
-	$match = get_posts( array( 'post_type' => 'page', 'name' => $pre_slug, 'numberposts' => 1, 'post_status' => 'publish' ) );
-	if ( $match && abq_in_services( $match[0]->ID ) ) {
+	$match = get_posts( array( 'post_type' => array( 'page', 'service' ), 'name' => $pre_slug, 'numberposts' => 1, 'post_status' => 'publish' ) );
+	if ( $match && ( 'service' === $match[0]->post_type || abq_in_services( $match[0]->ID ) ) ) {
 		$pre_label = $match[0]->post_title;
 		if ( ! isset( $options[ $pre_label ] ) ) {
 			$options = array( $pre_label => $pre_label ) + $options;
